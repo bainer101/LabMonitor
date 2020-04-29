@@ -1,0 +1,95 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<title>W3.CSS Template</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
+.w3-bar,h1,button {font-family: "Montserrat", sans-serif}
+.fa-anchor,.fa-coffee {font-size:200px}
+</style>
+<body>
+
+<!-- Header -->
+<header class="w3-container w3-red w3-center" style="padding:128px 16px">
+  <h1 class="w3-margin w3-jumbo">Blog post</h1>
+  <p class="w3-xlarge">Created by Alexander Baine</p>
+</header>
+
+<!-- First Grid -->
+<div class="w3-row-padding w3-padding-64 w3-container">
+  <div class="w3-content">
+    <div class="w3-twothird">
+      <p class="w3-text-grey">
+        Going into this project I had no idea how to do it and I knew it would
+        be a long and hard journey to develop my project. The first challenge
+        that I had to overcome in my project was the fear of not knowing what to
+        do. In order to overcome this problem, I sat down and broke the project
+        into small pieces that I could manage bit by bit, instead of having one
+        large project to manage. For example, instead of trying to learn facial
+        recognition all at once, start by learning how to find a face because
+        its a small chunk of what is required, but it still contributes towards
+        the project and its manageable. Once I had broken my project into small
+        manageable chunks, the fear ofthe unknown was greatly reduced because I
+        knew I could manage it.
+      </p>
+      <p class="w3-text-grey">
+        I started by preparing the hardware that I would need, mainly a
+        Raspberry Pi and Pi Camera. The Pi didn't have an Operating System
+        installed, so I had to work on doing that for a while, which the process
+        for is explained in my how-to-guide. After the Pi was setup, I needed to
+        setup the Pi Camera and test it, which is explained in the how-to-guide
+        too. These were both setup without any problems, and the resources and
+        support available for these are in abundance. To finish this portion of
+        the project I had to find a way to stream the Pi Cam footage via HTTP,
+        and after doing quite a bit of research, I found that using a
+        combination of <em>raspistill</em> and VLC was the best option and it
+        worked without fail. The whole Raspberry Pi related portion of the
+        project was now complete, so it was now time to work on the PC related
+        portion.
+      </p>
+      <p class="w3-text-grey">
+        The portion of the project that requires a PC to run requires a lot of
+        learning, such as facial recognition and body tracking. I wanted to
+        start with facial recognition because it seemed like it would take the
+        longest to do. My main resource for learning facial recognition was a
+        site called <a href="pyimagesearch.com">PyImageSearch</a>. This site
+        provides various machine learning tutorials, mostly in Python, and it
+        was quite valuable when developing my project. I followed the facial
+        recognition tutorial on the site, and it didn't just show me what to do,
+        but it also taught me about machine learning and how it works, which
+        will help me progress in future. The changes that I made to the program
+        was instead of the system recognizing the face for you, I made it return
+        the raw encodings of the faces in a JSON format so users can manipulate
+        it however they want. After quite a lot of problems when developing
+        this, which are mentioned in the diary, I got the system to work so all
+        that was left was to develop the body tracking portion.
+      </p>
+      <p class="w3-text-grey">
+        <em>The body tracking portion of the system has not been developed yet, but
+        updates will be made here when it does.</em>
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="w3-container w3-padding-64 w3-center w3-opacity">
+  <div class="w3-xlarge w3-padding-32">
+    <i class="fa fa-facebook-official w3-hover-opacity"></i>
+    <i class="fa fa-instagram w3-hover-opacity"></i>
+    <i class="fa fa-snapchat w3-hover-opacity"></i>
+    <i class="fa fa-pinterest-p w3-hover-opacity"></i>
+    <i class="fa fa-twitter w3-hover-opacity"></i>
+    <i class="fa fa-linkedin w3-hover-opacity"></i>
+ </div>
+ <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
+</footer>
+
+</body>
+</html>
