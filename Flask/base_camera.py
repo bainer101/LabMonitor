@@ -57,11 +57,13 @@ class BaseCamera(object):
 
     def get_frame(self):
         BaseCamera.last_access = time.time()
-
         BaseCamera.event.wait()
         BaseCamera.event.clear()
 
         return BaseCamera.frame
+
+    def get_ident(self):
+        return get_ident()
 
     @staticmethod
     def frames():
