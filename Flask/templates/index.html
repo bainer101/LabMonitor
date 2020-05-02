@@ -40,14 +40,16 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
     <img src="{{ url_for('video_feed') }}">
 
     <div class="w3-center">
-      <button class="button red">Export facial encodings</button></a>
-      <a href="{{ url_for('download_frame') }}"><button class="button red">Save frame</button></a>
+      <button class="button red">Export facial encodings</button>
+      <!-- <a href="#" id="framebtn" target="_blank"><button class="button red">Save frame</button></a> -->
+      <a href="/download_frame"><button class="button red">Save frame</button></a>
       <button class="button red">Get position data</button>
     </div>
   </div>
 </div>
 
-<script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type=text/javascript>
   function scrollToMain() {
     var elmnt = document.getElementById("main");
     console.log("HERE");
@@ -55,6 +57,16 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
       behavior: 'smooth'
     });
   }
+
+  // $(function() {
+  //   $('a#framebtn').bind('click', function() {
+  //     $.getJSON('/download_frame?_=' + new Date().getTime(),
+  //       function(data) {
+  //
+  //       });
+  //     return false;
+  //   });
+  // });
 </script>
 
 </body>

@@ -1,5 +1,6 @@
 import time
 import threading
+import os
 
 try:
     from greenlet import getcurrent as get_ident
@@ -65,6 +66,12 @@ class BaseCamera(object):
     def get_ident(self):
         return get_ident()
 
+    def clean_frames():
+        dir = "frames"
+        filesToRemove = [os.path.join(dir, f) for f in os.listdir(dir)]
+        for f in filesToRemove:
+            os.remove(f)
+
     @staticmethod
     def frames():
         raise RuntimeError("Must be implemented by subclasses")
@@ -82,6 +89,7 @@ class BaseCamera(object):
             # stop thread if no clients requesting frames
             if time.time() - BaseCamera.last_access > 10:
                 frames_iterator.close()
+                BaseCamera.clean_frames()
                 print ("Stopping camera thread due to inactivity")
                 break
         BaseCamera.thread = None
