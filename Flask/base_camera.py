@@ -66,6 +66,7 @@ class BaseCamera(object):
     def get_ident(self):
         return get_ident()
 
+    @staticmethod
     def clean_frames():
         dir = "frames"
         filesToRemove = [os.path.join(dir, f) for f in os.listdir(dir)]

@@ -7,6 +7,10 @@ import numpy as np
 import os
 
 parser = argparse.ArgumentParser(description="Run the flask web server")
+parser.add_argument("hostname",
+                    metavar="hostname",
+                    type=str,
+                    help="hostname for the web server")
 parser.add_argument("--pi", action="store_true", help="Using the Pi Cam")
 
 args=parser.parse_args()
@@ -47,7 +51,7 @@ def download_frame():
     nparr = np.frombuffer(camera.get_frame(), np.uint8)
     img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
     name = str(ident) + ".jpg"
-    file = "frames\\" + name
+    file = "frames/" + name
     cv2.imwrite(file, img)
 
     resp = send_file(file)
@@ -67,4 +71,4 @@ def add_header(r):
     return r
 
 if __name__ == '__main__':
-    app.run(host='192.168.0.41', debug=True)
+    app.run(host=args.hostname, debug=True)
