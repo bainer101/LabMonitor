@@ -63,7 +63,7 @@ class BaseCamera(object):
 
         return BaseCamera.frame
 
-    def get_ident(self):
+    def send_ident(self):
         return get_ident()
 
     @staticmethod
