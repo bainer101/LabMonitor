@@ -47,8 +47,8 @@ def add_header(response):
 
 @app.route('/download_frame')
 def download_frame():
-    ident = camera.send_ident()
-    nparr = np.frombuffer(camera.get_frame(), np.uint8)
+    ident = Camera().send_ident()
+    nparr = np.frombuffer(Camera().get_frame(), np.uint8)
     img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
     name = str(ident) + ".jpg"
     file = "frames/" + name
