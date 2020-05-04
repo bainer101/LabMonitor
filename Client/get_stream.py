@@ -54,4 +54,16 @@ def run_on_listen():
     with open('encodings.json', 'w') as fp:
         json.dump(data, fp)
 
-host = "http://" + args.ip
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+s.bind((args.ip, PORT))
+s.listen(1)
+conn,address=s.accept()
+
+while True:
+    datachunk = conn.recv(1024)
+    if not datachunk:
+        break
+    print (datachunk)
+
+conn.close()

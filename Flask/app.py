@@ -24,8 +24,24 @@ else:
 app = Flask(__name__)
 frame = None
 
+def setup_socket():
+    s = socket.socket()
+    print ("Socket created")
+
+    port = 50001
+
+    s.bind(("", port))
+    print ("Socket binded to port " + str(port))
+
+    s.listen(5)
+    print ("Socket is listening")
+
+    c, addr = s.accept()
+    print ("Got connection from " + str(addr))
+
 @app.route('/')
 def index():
+    setup_socket()
     return render_template("index.html")
 
 def gen():
@@ -61,23 +77,10 @@ def download_frame():
 
 @app.route('/get_facial_encodings')
 def get_facial_encodings():
-    s = socket.socket()
-    print ("Socket created")
-
-    port = 50001
-
-    s.bind(("", port))
-    print ("Socket binded to port " + str(port))
-
-    s.listen(5)
-    print ("Socket is listening")
-
-    c, addr = s.accept()
-    print ("Got connection from " + str(addr))
-
     c.send(b'Thanks for connecting')
-
     c.close()
+
+    return None
 
 @app.after_request
 def add_header(r):
