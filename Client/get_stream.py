@@ -56,7 +56,8 @@ def run_on_listen():
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-s.bind((args.ip, PORT))
+print (args.ip)
+s.bind(("192.168.0.46", 50001))
 s.listen(1)
 conn,address=s.accept()
 
