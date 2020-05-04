@@ -12,6 +12,10 @@ parser.add_argument("hostname",
                     metavar="hostname",
                     type=str,
                     help="hostname for the web server")
+parser.add_argument("ip",
+                    metavar="ip",
+                    type=str,
+                    help="IP address of the PC with GPU")
 parser.add_argument("--pi", action="store_true", help="Using the Pi Cam")
 
 args=parser.parse_args()
@@ -59,8 +63,8 @@ def download_frame():
 
     return resp
 
-@app.route('/get_facial_encodings')
-def get_facial_encodings():
+@app.route('/get_encodings', methods=["POST", "GET"])
+def get_encodings():
     s = socket.socket()
     s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     print ("Socket created")
@@ -77,21 +81,24 @@ def get_facial_encodings():
 
     print ("Got connection from " + str(addr))
 
-    c.send(b'facial_encodings')
+    if request.method == "GET":
+        if request.args.get("type") == "face":
+            c.send(b'facial_encodings')
+            
     c.close()
 
     hasConnected = False
     while not hasConnected:
         try:
             s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            s.connect(('127.0.0.1', 54321))
+            s.connect((args.ip, 54321))
             hasConnected = True
         except Exception as e:
             s.close()
 
     datachunk = s.recv(1024)
     encodings = json.loads(datachunk.decode("utf-8") + "]]}")
-    
+
     with open("encodings.json", "w") as f:
         json.dump(encodings, f)
 
