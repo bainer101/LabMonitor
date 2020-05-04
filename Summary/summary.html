@@ -1,0 +1,60 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<title>W3.CSS Template</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
+.w3-bar,h1,button {font-family: "Montserrat", sans-serif}
+.fa-anchor,.fa-coffee {font-size:200px}
+</style>
+<body>
+
+<!-- Header -->
+<header class="w3-container w3-red w3-center" style="padding:128px 16px">
+  <h1 class="w3-margin w3-jumbo">Blog post</h1>
+  <p class="w3-xlarge">Created by Alexander Baine</p>
+</header>
+
+<!-- First Grid -->
+<div class="w3-row-padding w3-padding-64 w3-container">
+  <div class="w3-content">
+    <div class="w3-twothird">
+      <p class="w3-text-grey">
+        This project allows users to monitor their labs by providing a live video feed, a feature to download frames for your own processing and providing facial encodings of people in the room for your own processing. This project has been developed so that the users can use the data it provides to suit their unique needs.
+      </p>
+      <p class="w3-text-grey">
+        When I approached this project, the first thing I had to do was research. I had to break down each part of the project into seperate portions, such as facial recognition and streaming video. I researched and implemented what I learnt separately. This allowed me to see if I could get the basic functionality in the project, and I had the adequate knowledge, before I tried to connect everything together to form a large project.
+      </p>
+      <p class="w3-text-grey">
+        If the code I implemented for these individual scripts failed, then I would continue my research into the project, but instead of following tutorials as I had been doing previously, I would be looking for StackOverflow questions that are similar to my problems, which would almost always fix the issue.
+      </p>
+      <p class="w3-text-grey">Once I got all of these individual scripts working, I would combine them together one by one. The Flask server was the most important script as this is how everything was connected, so I would try to connect everything to the Flask website, which came with issues because connecting these scripts to the Flask server came with a lot more topics and issues that I had to research.</p>
+      <p class="w3-text-grey">The Flask server required a video stream in it, so that was the first to be implemented, which was pretty straight forward as I followed a useful tutorial on it. After this I added the feature to download a frame from the stream, which I had researched prior to implementation. This was implemented after the video stream because it requires the video stream to get the frames.</p>
+      <p class="w3-text-grey">Once downloading frames was implemented, I was able to start working on facial encodings. Since this was on another device, I needed a way to retrieve the frames from the Flask server, which was through the download frames feature. This means that this part of the project required the ability to download frames to function correctly.</p>
+      <p class="w3-text-grey">The best advice I can give for working on a project like this is to separate each part of your project into managable topics that you then research and implement separate from each other, then once they&#39;re working on their own, make them work together. It is extremely important that you know what order everything needs to be implemented in, like I did here.</p>
+      <p class="w3-text-grey">All results that I got from this project were what I required, except for body tracking. I wasn&#39;t able to install OpenPose, the module required for this, successfully. I installed it a while ago but never tested/verified the installation, which lead to problems when I actually started developing that part of the project. This was a large mistake I made, and I didn&#39;t give enough time for myself to fix issues like this if they arose. I would advise, if you are working on something similar, test everything, even if you don&#39;t need it for a while, because something like this could happen and can lead to issues.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="w3-container w3-padding-64 w3-center w3-opacity">
+  <div class="w3-xlarge w3-padding-32">
+    <i class="fa fa-facebook-official w3-hover-opacity"></i>
+    <i class="fa fa-instagram w3-hover-opacity"></i>
+    <i class="fa fa-snapchat w3-hover-opacity"></i>
+    <i class="fa fa-pinterest-p w3-hover-opacity"></i>
+    <i class="fa fa-twitter w3-hover-opacity"></i>
+    <i class="fa fa-linkedin w3-hover-opacity"></i>
+ </div>
+ <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
+</footer>
+
+</body>
+</html>
