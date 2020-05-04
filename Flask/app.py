@@ -24,24 +24,8 @@ else:
 app = Flask(__name__)
 frame = None
 
-def setup_socket():
-    s = socket.socket()
-    print ("Socket created")
-
-    port = 50001
-
-    s.bind(("", port))
-    print ("Socket binded to port " + str(port))
-
-    s.listen(5)
-    print ("Socket is listening")
-
-    c, addr = s.accept()
-    print ("Got connection from " + str(addr))
-
 @app.route('/')
 def index():
-    setup_socket()
     return render_template("index.html")
 
 def gen():
@@ -71,16 +55,47 @@ def download_frame():
     file = "frames/" + name
     cv2.imwrite(file, img)
 
-    resp = send_file(file)
+    resp = send_file(file, as_attachment=True)
 
     return resp
 
 @app.route('/get_facial_encodings')
 def get_facial_encodings():
-    c.send(b'Thanks for connecting')
+    s = socket.socket()
+    s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+    print ("Socket created")
+
+    port = 12345
+
+    s.bind(("", port))
+    print ("Socket binded to port " + str(port))
+
+    s.listen(5)
+    print ("Socket is listening")
+
+    c, addr = s.accept()
+
+    print ("Got connection from " + str(addr))
+
+    c.send(b'facial_encodings')
     c.close()
 
-    return None
+    hasConnected = False
+    while not hasConnected:
+        try:
+            s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            s.connect(('127.0.0.1', 54321))
+            hasConnected = True
+        except Exception as e:
+            s.close()
+
+    datachunk = s.recv(1024)
+    encodings = json.loads(datachunk.decode("utf-8") + "]]}")
+    
+    with open("encodings.json", "w") as f:
+        json.dump(encodings, f)
+
+    return send_file("encodings.json", as_attachment=True)
 
 @app.after_request
 def add_header(r):

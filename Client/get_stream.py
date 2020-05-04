@@ -28,11 +28,11 @@ def url_to_image(url):
     return image
 
 def run_on_listen():
-    print ("3 seconds till images are taken")
+    print ("3 seconds until images are taken")
     time.sleep(3)
     knownEncodings = []
 
-    for i in range(args.frames):
+    for i in range(1, args.frames+1):
         frame = url_to_image("http://" + args.ip + "/download_frame")
         print("Reading image:" + str(i) + "/" + str(args.frames))
         rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
@@ -51,20 +51,50 @@ def run_on_listen():
         knownEncodings[i] = knownEncoding.tolist()
 
     data = {"encodings": knownEncodings}
-    with open('encodings.json', 'w') as fp:
-        json.dump(data, fp)
 
-s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-print (args.ip)
-s.bind(("192.168.0.46", 50001))
-s.listen(1)
-conn,address=s.accept()
+    print ("Completed encodings")
+
+    return json.dumps(data)
+
+hasConnected = False
+port = 12345
 
 while True:
-    datachunk = conn.recv(1024)
-    if not datachunk:
-        break
-    print (datachunk)
+    while not hasConnected:
+        try:
+            s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            s.connect(('127.0.0.1', port))
+            hasConnected = True
+        except Exception as e:
+            s.close()
 
-conn.close()
+    datachunk = s.recv(1024)
+
+    while not datachunk:
+        continue
+
+    if datachunk.decode("utf-8") == "facial_encodings":
+        hasConnected = False
+        s.close()
+
+        s = socket.socket()
+        s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        print ("Socket created")
+
+        s.bind(("", 54321))
+        print ("Socket binded to port " + str(port))
+
+        s.listen(5)
+        print ("Socket is listening")
+
+        c, addr = s.accept()
+
+        print ("Got connection from " + str(addr))
+
+        encodings = run_on_listen()
+        c.sendall(bytes(encodings,encoding="utf-8"))
+        c.close()
+
+        print("\nWaiting on request")
+
+s.close()
