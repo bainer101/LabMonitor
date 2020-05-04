@@ -13,7 +13,11 @@ parser = argparse.ArgumentParser(description="Return facial encodings to site")
 parser.add_argument("ip",
                     metavar="ip",
                     type=str,
-                    help="IP address of Flask server (including port)")
+                    help="IP address of Flask server")
+parser.add_argument("port",
+                    metavar="port",
+                    type=str,
+                    help="port of flask server")
 parser.add_argument("frames",
                     metavar="frames",
                     type=int,
@@ -33,7 +37,7 @@ def run_on_listen():
     knownEncodings = []
 
     for i in range(1, args.frames+1):
-        frame = url_to_image("http://" + args.ip + "/download_frame")
+        frame = url_to_image("http://" + args.ip + ":" + args.port + "/download_frame")
         print("Reading image:" + str(i) + "/" + str(args.frames))
         rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 
@@ -63,7 +67,7 @@ while True:
     while not hasConnected:
         try:
             s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            s.connect(('127.0.0.1', port))
+            s.connect((args.ip, port))
             hasConnected = True
         except Exception as e:
             s.close()
